@@ -1,0 +1,12 @@
+<section [class]="panelClasses()">
+  <header class="panel__header">
+    @if (eyebrow()) {
+      <p class="panel__eyebrow">{{ eyebrow() }}</p>
+    }
+    <h2 class="panel__title">{{ title() }}</h2>
+  </header>
+
+  <div class="panel__content">
+    <ng-content />
+  </div>
+</section>

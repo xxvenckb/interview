@@ -1,0 +1,84 @@
+<main class="page-shell">
+  <header class="hero">
+    <div class="hero__content">
+      <p class="hero__eyebrow">Sanitized interview starter</p>
+      <h1 class="hero__title">Advisor overview</h1>
+      <p class="hero__description">
+        This sample mirrors an internal case review screen without any private integrations or
+        production data.
+      </p>
+    </div>
+
+    <dl class="hero__meta">
+      @for (item of summaryItems(); track item.label) {
+        <div class="hero__meta-item">
+          <dt>{{ item.label }}</dt>
+          <dd>{{ item.value }}</dd>
+        </div>
+      }
+    </dl>
+  </header>
+
+  <section class="workspace">
+    <aside class="workspace__sidebar">
+      <section class="candidate-slot" data-testid="applicant-information-slot">
+        <p class="candidate-slot__eyebrow">Candidate task</p>
+        <h2 class="candidate-slot__title">Applicant information belongs here</h2>
+        <p class="candidate-slot__description">
+          Create a standalone component and render it in this slot using the participant data that
+          already exists on this page.
+        </p>
+
+        <ul class="candidate-slot__list">
+          <li>Show each applicant's full name, role, personal number, and age.</li>
+          <li>Derive age from the `dateOfBirth` field.</li>
+          <li>Handle missing or invalid dates with a fallback value.</li>
+        </ul>
+      </section>
+
+      <app-panel title="Key figures" eyebrow="Snapshot">
+        <dl class="metric-list">
+          <div>
+            <dt>Liquidity</dt>
+            <dd>2.4</dd>
+          </div>
+          <div>
+            <dt>Debt grade</dt>
+            <dd>4</dd>
+          </div>
+          <div>
+            <dt>Loan to value</dt>
+            <dd>71%</dd>
+          </div>
+        </dl>
+      </app-panel>
+    </aside>
+
+    <section class="workspace__main">
+      <app-panel title="Decision notes" eyebrow="Case review">
+        <ol class="note-list">
+          @for (note of decisionNotes(); track note.id) {
+            <li class="note-list__item">
+              <h3>{{ note.title }}</h3>
+              <p>{{ note.body }}</p>
+            </li>
+          }
+        </ol>
+      </app-panel>
+
+      <app-panel title="Attachments" eyebrow="Customer documents">
+        <ul class="attachment-list">
+          @for (attachment of attachments(); track attachment.id) {
+            <li class="attachment-list__item">
+              <div>
+                <p class="attachment-list__name">{{ attachment.name }}</p>
+                <p class="attachment-list__date">Uploaded {{ attachment.uploadedAt }}</p>
+              </div>
+              <span class="attachment-list__tag">PDF</span>
+            </li>
+          }
+        </ul>
+      </app-panel>
+    </section>
+  </section>
+</main>
