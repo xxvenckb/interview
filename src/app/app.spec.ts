@@ -25,7 +25,7 @@ describe('App', () => {
   });
 
   it('should render the advisor overview starter page', function (context: SharedTestData) {
-    expect(context.element.textContent).toContain('Advisor overview');
-    expect(context.element.textContent).toContain('Applicant information belongs here');
+    expect(context.element.textContent).toContain('Alex Lindberg');
+    expect(context.element.textContent).toContain('Rule violations');
   });
 });

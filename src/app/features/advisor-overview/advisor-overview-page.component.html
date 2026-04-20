@@ -1,84 +1,130 @@
-<main class="page-shell">
-  <header class="hero">
-    <div class="hero__content">
-      <p class="hero__eyebrow">Sanitized interview starter</p>
-      <h1 class="hero__title">Advisor overview</h1>
-      <p class="hero__description">
-        This sample mirrors an internal case review screen without any private integrations or
-        production data.
-      </p>
-    </div>
-
-    <dl class="hero__meta">
-      @for (item of summaryItems(); track item.label) {
-        <div class="hero__meta-item">
-          <dt>{{ item.label }}</dt>
-          <dd>{{ item.value }}</dd>
+<main class="flex min-h-screen flex-col bg-[var(--bg-app)]">
+  <header class="w-full border-b border-[var(--border2-subtle)] bg-[var(--bg0)]">
+    <div class="flex flex-col gap-6 px-4 py-5 lg:flex-row lg:items-start lg:justify-between">
+      <div class="flex min-w-0 flex-1 flex-col gap-4">
+        <div>
+          <h1 class="text-[clamp(2rem,3vw,2.75rem)] font-normal leading-[1.02] text-[var(--text0-primary)]">
+            {{ caseSummary().title }}
+          </h1>
+          <h2 class="mt-1.5 text-[1.125rem] font-medium leading-[1.2] text-[var(--text2-secondary)] sm:text-[1.5rem]">
+            {{ caseSummary().subtitle }}
+          </h2>
         </div>
-      }
-    </dl>
+
+        <div class="flex flex-wrap gap-3">
+          @for (tag of caseTags(); track tag.id) {
+            <span [class]="caseTagClasses(tag.tone)">{{ tag.label }}</span>
+          }
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="inline-flex min-h-8 items-center gap-1.5 rounded-lg border-0 bg-transparent px-3 py-1.5 text-[var(--text0-primary)] transition-colors hover:bg-[var(--bg1)]"
+      >
+        <span aria-hidden="true">↻</span>
+        <span>Refresh</span>
+      </button>
+    </div>
   </header>
 
-  <section class="workspace">
-    <aside class="workspace__sidebar">
-      <section class="candidate-slot" data-testid="applicant-information-slot">
-        <p class="candidate-slot__eyebrow">Candidate task</p>
-        <h2 class="candidate-slot__title">Applicant information belongs here</h2>
-        <p class="candidate-slot__description">
-          Create a standalone component and render it in this slot using the participant data that
-          already exists on this page.
-        </p>
-
-        <ul class="candidate-slot__list">
-          <li>Show each applicant's full name, role, personal number, and age.</li>
-          <li>Derive age from the `dateOfBirth` field.</li>
-          <li>Handle missing or invalid dates with a fallback value.</li>
-        </ul>
-      </section>
-
-      <app-panel title="Key figures" eyebrow="Snapshot">
-        <dl class="metric-list">
-          <div>
-            <dt>Liquidity</dt>
-            <dd>2.4</dd>
-          </div>
-          <div>
-            <dt>Debt grade</dt>
-            <dd>4</dd>
-          </div>
-          <div>
-            <dt>Loan to value</dt>
-            <dd>71%</dd>
-          </div>
+  <div class="flex flex-col gap-6 px-4 py-5 xl:flex-row">
+    <aside class="flex w-full shrink-0 flex-col gap-6 xl:w-80">
+      <app-panel title="Key figures" contentClassName="pt-2.5">
+        <dl class="m-0 grid gap-3">
+          @for (figure of keyFigures(); track figure.label) {
+            <div class="grid grid-cols-[1fr_auto] items-center gap-3">
+              <dt class="text-[var(--text1-primary)]">{{ figure.label }}</dt>
+              <dd>
+                <span [class]="keyFigureClasses(figure.tone)">{{ figure.value }}</span>
+              </dd>
+            </div>
+          }
         </dl>
       </app-panel>
+
     </aside>
 
-    <section class="workspace__main">
-      <app-panel title="Decision notes" eyebrow="Case review">
-        <ol class="note-list">
-          @for (note of decisionNotes(); track note.id) {
-            <li class="note-list__item">
-              <h3>{{ note.title }}</h3>
-              <p>{{ note.body }}</p>
-            </li>
+    <section class="flex flex-1 flex-col gap-6">
+      <app-panel title="Rule violations" titleClassName="text-[18px] leading-6" contentClassName="pt-2">
+        <p class="text-sm font-bold leading-5 text-[var(--text1-primary)]">
+          Showing {{ ruleViolations().length }} of {{ ruleViolations().length }}
+        </p>
+
+        <div class="mt-3 border-t border-[var(--border2-subtle)]">
+          @for (rule of ruleViolations(); track rule.id) {
+            <article class="border-b border-[var(--border2-subtle)] py-3.5 last:border-b-0 last:pb-0">
+              <h3 class="text-sm font-semibold leading-5 text-[var(--text1-primary)]">{{ rule.title }}</h3>
+              <p class="mt-1.5 leading-5 text-[var(--text2-secondary)]">{{ rule.details }}</p>
+            </article>
           }
-        </ol>
+        </div>
       </app-panel>
 
-      <app-panel title="Attachments" eyebrow="Customer documents">
-        <ul class="attachment-list">
-          @for (attachment of attachments(); track attachment.id) {
-            <li class="attachment-list__item">
-              <div>
-                <p class="attachment-list__name">{{ attachment.name }}</p>
-                <p class="attachment-list__date">Uploaded {{ attachment.uploadedAt }}</p>
+      <app-panel title="Case stages" contentClassName="pt-2">
+        <div class="mt-3 border-t border-[var(--border2-subtle)]">
+          @for (stage of caseStages(); track stage.id) {
+            <button
+              type="button"
+              class="flex w-full flex-col items-start gap-2 border-b border-[var(--border2-subtle)] bg-transparent py-3.5 text-left last:border-b-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+            >
+              <div class="min-w-0">
+                <h3 class="text-sm font-semibold leading-5 text-[var(--text1-primary)]">{{ stage.label }}</h3>
+                <p class="mt-1.5 leading-5 text-[var(--text2-secondary)]">{{ stage.description }}</p>
               </div>
-              <span class="attachment-list__tag">PDF</span>
-            </li>
+
+              <span class="shrink-0 text-sm font-semibold leading-5 text-[var(--accent)]">
+                {{ stage.actionLabel }}
+              </span>
+            </button>
           }
-        </ul>
+        </div>
       </app-panel>
     </section>
-  </section>
+
+    <aside class="w-full shrink-0 xl:w-[406px]">
+      <app-panel title="Attachments" contentClassName="pt-2">
+        <button
+          panelActions
+          type="button"
+          class="inline-flex h-8 w-8 items-center justify-center rounded-lg border-0 bg-transparent p-0 text-[var(--text1-primary)] transition-colors hover:bg-[var(--bg1)]"
+          aria-label="Upload attachment"
+        >
+          +
+        </button>
+
+        <p class="text-sm font-bold leading-5 text-[var(--text1-primary)]">{{ attachmentCountLabel() }}</p>
+
+        <div class="mt-3 border-t border-[var(--border2-subtle)]">
+          @for (attachment of attachments(); track attachment.id) {
+            <article class="flex flex-col items-start gap-3 border-b border-[var(--border2-subtle)] py-3.5 last:border-b-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between">
+              <div class="flex min-w-0 flex-1 items-center gap-3">
+                <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--accent)] text-[10px] font-bold leading-none text-white">
+                  {{ attachment.type }}
+                </span>
+
+                <div class="min-w-0">
+                  <p class="break-words font-semibold leading-5 text-[var(--text1-primary)]">
+                    {{ attachment.name }}
+                  </p>
+                  <p class="mt-1.5 leading-5 text-[var(--text2-secondary)]">
+                    Uploaded {{ attachment.uploadedAt }}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-0 bg-transparent p-0 text-[var(--text2-secondary)] transition-colors hover:bg-[var(--bg1)]"
+                aria-label="Download attachment"
+              >
+                ↓
+              </button>
+            </article>
+          }
+        </div>
+      </app-panel>
+
+    </aside>
+  </div>
 </main>

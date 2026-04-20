@@ -4,13 +4,13 @@
 
 You are working on a sanitized Angular starter that represents part of an advisor workflow.
 
-The current page already shows case metadata, decision notes, and attachments. One feature is intentionally missing: applicant information.
+The current page already shows case metadata, rule violations, case stages, and attachments. One feature is intentionally missing: applicant information.
 
 ## Goal
 
 Create an `ApplicantInformationComponent` and render it on the `AdvisorOverviewPageComponent`.
 
-Use the design reference in `public/reference/applicant-information-reference.svg` as a visual guide.
+Use the design reference in `public/reference/reference.png` as a visual guide.
 
 ## Starter Context
 
@@ -25,17 +25,28 @@ Build a standalone Angular component that:
 
 1. Renders one card or row per participant.
 2. Shows the participant's full name.
-3. Shows the participant's role.
-4. Shows the participant's personal number.
-5. Derives age from `dateOfBirth`.
-6. Uses a fallback when `dateOfBirth` is missing or invalid.
-7. Is wired into the existing advisor overview page.
+3. Shows the participant's personal number.
+4. Derives age from the participant's personal number.
+5. Uses a fallback when the personal number cannot be parsed.
+6. Is placed and wired into the existing advisor overview page where you think it belongs.
+
+## Parsing Rule
+
+- You can assume the first 6 digits of the personal number represent `ddMMyy`.
+- You can infer the century with a simple rule: if `yy` is greater than the current two-digit year, treat it as `19yy`; otherwise treat it as `20yy`.
+- You do not need to support special personal-number variants or domain-specific edge cases beyond invalid input fallback.
+
+## Optional Helper Path
+
+- If you get stuck on the parsing part, you may use the helper functions in `src/app/core/utils/personal-number.ts`.
+- You can also ignore those helpers and implement the parsing yourself.
 
 ## Constraints
 
 - Keep the scope tight. You do not need routing, services, HTTP calls, or state libraries.
 - Treat the design reference as directional rather than pixel perfect.
 - Prefer clear, maintainable code over decorative complexity.
+- Use the existing page structure and the sketch to decide where the component should be placed.
 - If you make tradeoffs, explain them out loud.
 
 ## Nice To Have
