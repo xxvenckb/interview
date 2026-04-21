@@ -5,8 +5,6 @@
 ```bash
 npm install
 npm start
-npm run build
-npm test -- --watch=false
 ```
 
 The app runs on `http://localhost:4200` by default.
@@ -34,7 +32,6 @@ Use the sketch below as a visual guide.
 ## Parsing Rule
 
 - You can assume the first 6 digits of the personal number represent `ddMMyy`.
-- Use a simple century rule: if `yy` is greater than the current two-digit year, treat it as `19yy`; otherwise treat it as `20yy`.
 
 ## Notes
 
