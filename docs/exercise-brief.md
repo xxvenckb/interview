@@ -27,14 +27,11 @@ Build a standalone Angular component that:
 2. Shows the participant's full name.
 3. Shows the participant's personal number.
 4. Derives age from the participant's personal number.
-5. Uses a fallback when the personal number cannot be parsed.
-6. Is placed and wired into the existing advisor overview page where you think it belongs.
+5. Is placed and wired into the existing advisor overview page where you think it belongs.
 
 ## Parsing Rule
 
 - You can assume the first 6 digits of the personal number represent `ddMMyy`.
-- You can infer the century with a simple rule: if `yy` is greater than the current two-digit year, treat it as `19yy`; otherwise treat it as `20yy`.
-- You do not need to support special personal-number variants or domain-specific edge cases beyond invalid input fallback.
 
 ## Optional Helper Path
 

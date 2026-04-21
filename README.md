@@ -29,14 +29,12 @@ Use the sketch below as a visual guide.
 2. Show the participant's full name.
 3. Show the participant's personal number.
 4. Derive age from the participant's personal number.
-5. Use a fallback when the personal number cannot be parsed.
-6. Wire the component into the existing page.
+5. Wire the component into the existing page.
 
 ## Parsing Rule
 
 - You can assume the first 6 digits of the personal number represent `ddMMyy`.
-- If `yy` is greater than the current two-digit year, treat it as `19yy`; otherwise treat it as `20yy`.
-- You do not need to support special personal-number variants or domain-specific edge cases beyond invalid input fallback.
+- Use a simple century rule: if `yy` is greater than the current two-digit year, treat it as `19yy`; otherwise treat it as `20yy`.
 
 ## Notes
 

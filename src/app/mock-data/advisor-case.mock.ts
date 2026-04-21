@@ -88,7 +88,7 @@ export const INTERVIEW_PARTICIPANTS: readonly Participant[] = [
     id: 'applicant-2',
     firstName: 'Sam',
     lastName: 'Rivera',
-    personalNumber: '11038454321',
+    personalNumber: '11030054321',
   },
 ];
 
